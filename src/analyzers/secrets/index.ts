@@ -41,6 +41,7 @@ const SECRET_PATTERNS = {
   password: /(?:password|passwd|pwd)\s*[=:]\s*['"]?([^'"\s]{8,})['"]?/gi,
   awsKey: /AKIA[0-9A-Z]{16}/g,
   privateKey: /-----BEGIN (?:RSA |DSA |EC |OPENSSH )?PRIVATE KEY-----/g,
+  uriCredentials: /:\/\/[^:\s]+:([^@\s]{8,})@/g,
 };
 
 function matches(pattern: RegExp, content: string): boolean {
@@ -137,7 +138,7 @@ export class SecretsAnalyzer implements Analyzer {
   }
 
   private scanForPasswords(content: string): Finding[] {
-    if (!matches(SECRET_PATTERNS.password, content)) {
+    if (!matches(SECRET_PATTERNS.password, content) && !matches(SECRET_PATTERNS.uriCredentials, content)) {
       return [];
     }
     return [{
