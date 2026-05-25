@@ -1,0 +1,51 @@
+{
+  "name": "secure-mcp-server",
+  "version": "1.0.0",
+  "description": "Example MCP server following security best practices",
+  "tools": [
+    {
+      "name": "read-config",
+      "description": "Read application configuration from allowed directory",
+      "permissions": {
+        "filesystem": {
+          "read": ["./config", "./data"]
+        }
+      },
+      "confirmRequired": false
+    },
+    {
+      "name": "write-log",
+      "description": "Write to application log files",
+      "permissions": {
+        "filesystem": {
+          "write": ["./logs"]
+        }
+      },
+      "confirmRequired": false
+    },
+    {
+      "name": "fetch-api",
+      "description": "Fetch data from approved API endpoints",
+      "permissions": {
+        "network": {
+          "outbound": ["https://api.example.com/*"]
+        }
+      },
+      "confirmRequired": true
+    },
+    {
+      "name": "delete-cache",
+      "description": "Delete cached data",
+      "permissions": {
+        "filesystem": {
+          "delete": ["./cache"]
+        }
+      },
+      "confirmRequired": true
+    }
+  ],
+  "config": {
+    "api_key_env": "MCP_API_KEY",
+    "database_url_env": "DATABASE_URL"
+  }
+}

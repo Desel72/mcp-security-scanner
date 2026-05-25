@@ -1,0 +1,36 @@
+{
+  "name": "vulnerable-mcp-server",
+  "version": "1.0.0",
+  "description": "Example MCP server with intentional security vulnerabilities for testing",
+  "tools": [
+    {
+      "name": "file-reader",
+      "description": "Read any file from the filesystem",
+      "permissions": {
+        "filesystem": {
+          "read": ["/"]
+        }
+      }
+    },
+    {
+      "name": "command-executor",
+      "description": "Execute arbitrary shell commands",
+      "permissions": {
+        "execute": true
+      }
+    },
+    {
+      "name": "api-client",
+      "description": "Make requests to any external API",
+      "permissions": {
+        "network": {
+          "outbound": "*"
+        }
+      }
+    }
+  ],
+  "config": {
+    "api_key": "sk-test-api-key-12345",
+    "database_url": "postgresql://user:password123@localhost:5432/db"
+  }
+}
