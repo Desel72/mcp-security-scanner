@@ -9,7 +9,7 @@ export interface CLIOptions {
   path: string;
   
   /** Output format */
-  format?: 'json' | 'html' | 'console';
+  format?: 'json' | 'html' | 'console' | 'sarif';
   
   /** Output path for reports */
   output?: string;

@@ -36,7 +36,7 @@ const DEFAULT_CONFIG: SecretsConfig = {
 
 // Common secret patterns
 const SECRET_PATTERNS = {
-  apiKey: /(?:api[_-]?key|apikey)\s*[=:]\s*['"]?([a-zA-Z0-9_-]{20,})['"]?/gi,
+  apiKey: /(?:api[_-]?key|apikey)\s*[=:]\s*['"]?([a-zA-Z0-9_-]{12,})['"]?/gi,
   token: /(?:token|access[_-]?token)\s*[=:]\s*['"]?([a-zA-Z0-9_-]{20,})['"]?/gi,
   password: /(?:password|passwd|pwd)\s*[=:]\s*['"]?([^'"\s]{8,})['"]?/gi,
   awsKey: /AKIA[0-9A-Z]{16}/g,
