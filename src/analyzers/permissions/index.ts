@@ -6,6 +6,7 @@
 
 import type { Analyzer, AnalyzerResult, Finding, Category } from '../index';
 import { loadTargetContext, type MCPTool } from '../../utils/target';
+import { isRootEquivalentPathPattern } from '../../utils/filesystem';
 
 export interface PermissionConfig {
   /** Enable this analyzer */
@@ -98,7 +99,7 @@ export class PermissionAnalyzer implements Analyzer {
       const write = fsPerms.write;
       const del = fsPerms.delete;
       const values = [read, write, del].flatMap(v => (Array.isArray(v) ? v : [v])).filter(Boolean);
-      if (values.some(v => v === '/')) {
+      if (values.some(isRootEquivalentPathPattern)) {
         findings.push({
           id: `${tool.name ?? 'unknown'}-filesystem-root`,
           ruleId: 'PERM-001',
