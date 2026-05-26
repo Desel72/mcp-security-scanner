@@ -6,6 +6,7 @@
 
 import type { Analyzer, AnalyzerResult, Finding, Category } from '../index';
 import { loadTargetContext, type MCPTool } from '../../utils/target';
+import { isRootEquivalentPathPattern } from '../../utils/filesystem';
 
 export interface FilesystemConfig {
   /** Enable this analyzer */
@@ -113,7 +114,7 @@ export class FilesystemAnalyzer implements Analyzer {
         const fsPerms = tool.permissions?.filesystem as Record<string, unknown> | undefined;
         const values = [fsPerms?.read, fsPerms?.write, fsPerms?.delete]
           .flatMap(v => (Array.isArray(v) ? v : [v]));
-        return values.includes(SENSITIVE_PATHS.root);
+        return values.some(isRootEquivalentPathPattern);
       })
       .map(tool => ({
         id: `${tool.name ?? 'unknown'}-root-access`,
